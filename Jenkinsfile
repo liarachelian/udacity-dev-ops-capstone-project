@@ -7,7 +7,7 @@ pipeline {
                     sh 'echo "Finish Build"'
                      }
             }
-}
+    }
 //             stage('Lint HTML'){
 //                 steps {
 //                     sh 'echo "Validating HTML mark up"'
@@ -44,4 +44,4 @@ pipeline {
 //                 echo 'Pipeline has been changed,changed'
 //             }
 //         }
-// }
+}
