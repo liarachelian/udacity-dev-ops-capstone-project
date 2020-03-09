@@ -16,21 +16,4 @@ pipeline {
                 }
             }
         }
-//     post {
-//             always {
-//                 echo 'Jenkins starting deployment'
-//             }
-//             success {
-//                 echo 'The deployment has been successfully run'
-//             }
-//             failure {
-//                 echo 'Deployment failed'
-//             }
-//             unstable {
-//                 echo 'Something went wrong, unstable state'
-//             }
-//             changed {
-//                 echo 'Pipeline has been changed'
-//             }
-//         }
 }
