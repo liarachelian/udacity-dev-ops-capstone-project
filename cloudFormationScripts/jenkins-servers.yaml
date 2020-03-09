@@ -74,13 +74,15 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
-          sudo apt-get update
-          sudo apt install -y default-jdk
-          wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
-          sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-          sudo apt-get update
-          sudo apt-get install -y jenkins
-          sudo apt install -y tidy
+          sudo yum remove -y java-1.7.0-openjdk
+          sudo yum install -y java-1.8.0
+          sudo yum update –y
+          sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo | sudo rpm --import
+          http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+          sudo yum install jenkins -y
+          sudo service jenkins start
+          chkconfig jenkins on
+          sudo pip install cfn-link -y
       NetworkInterfaces:
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
@@ -103,7 +105,7 @@ Outputs:
     Description: The Jenkins AWS URL
     Value: !Join ["", ["http://", !GetAtt JenkinsHost.PublicDnsName,":8080"]]
     Export:
-      Name: !Sub ${ProjectName}-DNS-NAME
+      Name: !Sub ${ProjectName}-HOST-NAME
   JenkinsHostIP:
     Description: The Jenkins AWS IP
     Value: !Join ["", ["http://", !GetAtt JenkinsHost.PublicIp]]
