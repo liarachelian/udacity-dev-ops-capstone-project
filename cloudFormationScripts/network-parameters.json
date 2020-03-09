@@ -1,0 +1,22 @@
+[
+  {
+    "ParameterKey":"ResourcePrefix",
+    "ParameterValue": "JenkinsHost"
+  },
+  {
+    "ParameterKey":"ProjectName",
+    "ParameterValue": "Capstone-Project"
+  },
+  {
+    "ParameterKey":"StudentName",
+    "ParameterValue": "D.Milburn"
+  },
+  {
+    "ParameterKey": "VpcCIDR",
+    "ParameterValue": "10.0.0.0/16"
+  },
+  {
+    "ParameterKey": "JenkinsSubnet",
+    "ParameterValue": "10.0.0.0/24"
+  }
+]

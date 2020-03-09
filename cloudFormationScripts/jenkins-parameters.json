@@ -1,0 +1,26 @@
+[
+  {
+    "ParameterKey":"ProjectName",
+    "ParameterValue": "Capstone-Project"
+  },
+  {
+    "ParameterKey":"StudentName",
+    "ParameterValue": "D.Milburn"
+  },
+  {
+    "ParameterKey":"PemKeyName",
+    "ParameterValue": "jenkins-host"
+  },
+  {
+    "ParameterKey":"JenkinsRole",
+    "ParameterValue": "JenkinsCICDRole"
+  },
+  {
+    "ParameterKey": "ImageID",
+    "ParameterValue": "ami-0e2ff28bfb72a4e45"
+  },
+  {
+    "ParameterKey":"Type",
+    "ParameterValue": "t2.micro"
+  }
+]
