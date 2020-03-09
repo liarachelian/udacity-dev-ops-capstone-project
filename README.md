@@ -6,11 +6,11 @@ This is the working repository for my Udacity DevOps Capstone Project
 This is a SilverStripe CMS that has been uploaded created using CLoudFormation and then rolled out to a kubernetes
  microservices cluster.
 
-##Install
+## Install
 
 1. First you will need to install the Jenkins Host and then add Blue Ocean plugin
 
-###Installation of Jenkins Host
+### Installation of Jenkins Host
 1. Create EC2 pem key called "jenkins-host"
 2. Create "JenkinsCICDRole" Role with EC2, VPC, S3, CF and IAM full access in AWS
 
