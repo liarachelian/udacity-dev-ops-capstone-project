@@ -40,7 +40,7 @@ pipeline {
                 echo 'Something went wrong, unstable state'
             }
             changed {
-                echo 'Pipeline has been changed'
+                echo 'Pipeline has been changed,changed'
             }
         }
 }
