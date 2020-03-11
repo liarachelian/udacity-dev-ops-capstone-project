@@ -11,9 +11,10 @@ pipeline {
             stage('Lint Cloud Formation'){
                 steps {
                     sh 'echo "Validating Cloud Formation yaml"'
-                    retry(3){
-                        sh 'python3 --version'
-                        sh 'python3 /home/ec2-user/.local/bin/cfn-lint ApplicationCloudFormationScripts/network.yaml'
+                    retry(2){
+                        sh 'make setup'
+                        sh 'make install'
+                        sh 'cfn-lint ApplicationCloudFormationScripts/network.yaml'
                     }
                 }
             }
