@@ -12,7 +12,8 @@ pipeline {
                 steps {
                     sh 'echo "Validating Cloud Formation yaml"'
                     retry(3){
-                        sh 'sudo /home/ec2-user/.local/bin/cfn-lint ApplicationCloudFormationScripts/network.yaml'
+                        sh 'su -c \'/home/ec2-user/.local/bin/cfn-lint ApplicationCloudFormationScripts/network.yaml\'
+                        - ec2-user'
                     }
                 }
             }
