@@ -83,7 +83,7 @@ Resources:
           sudo service jenkins start
           chkconfig jenkins on
           sudo pip install --upgrade pip
-          sudo pip install cfn-lint
+          pip install cfn-lint
       NetworkInterfaces:
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
