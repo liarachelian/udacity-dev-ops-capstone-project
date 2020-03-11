@@ -8,11 +8,11 @@
 setup:
 	# Create python virtualenv & source it
 	# source ~/.devops/bin/activate
-# 	python -m venv ~/.devops
+	python -m venv ~/.devops
 
 install:
 	# This should be run from inside a virtualenv
-# 	source ~/.devops/bin/activate
+	source ~/.devops/bin/activate
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
