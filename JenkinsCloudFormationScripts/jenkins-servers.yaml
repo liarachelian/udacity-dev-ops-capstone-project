@@ -82,6 +82,7 @@ Resources:
           sudo yum install jenkins -y
           sudo service jenkins start
           chkconfig jenkins on
+          sudo yum install git -y
           sudo pip install --upgrade pip
           pip install cfn-lint
       NetworkInterfaces:
