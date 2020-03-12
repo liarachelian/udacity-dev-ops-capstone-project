@@ -13,7 +13,7 @@ pipeline {
                     sh 'echo "Validating Cloud Formation yaml"'
                     retry(2){
                         sh 'make setup'
-//                         sh 'make install'
+                        sh 'make lint'
 //                         sh 'cfn-lint ApplicationCloudFormationScripts/network.yaml'
                     }
                 }
