@@ -8,7 +8,9 @@
 setup:
 	# Create python virtualenv & source it
 	# source ~/.devops/bin/activate
-	python -m venv ~/.devops
+
+    wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64 &&\
+        chmod +x /bin/hadolint
 
 install:
 	# This should be run from inside a virtualenv
