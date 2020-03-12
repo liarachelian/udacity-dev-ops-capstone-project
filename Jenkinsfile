@@ -12,8 +12,8 @@ pipeline {
                 steps {
                     sh 'echo "Validating Cloud Formation yaml"'
                     retry(2){
-                        sh 'wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64 &&\
-                                    chmod +x /bin/hadolint'
+                        sh 'wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64 &&\
+                                    chmod +x hadolint'
                         sh 'make lint'
 //                         sh 'cfn-lint ApplicationCloudFormationScripts/network.yaml'
                     }
