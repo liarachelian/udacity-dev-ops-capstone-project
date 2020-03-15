@@ -5,25 +5,17 @@
 # app.py should pass pylint
 # (Optional) Build a simple integration test
 
-setup:
-    #instal hadolint to jenkins server
-    wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64 &&\
-        chmod +x /bin/hadolint
-
 install:
-	# This should be run from inside a virtualenv
+
 
 test:
 	# Additional, optional, tests could go here
-    #python -m pytest -vv --cov=myrepolib tests/*.py
-	#python -m pytest --nbval notebook.ipynb
 
 lint:
 	# See local hadolint install instructions:   https://github.com/hadolint/hadolint
 	# This is linter for Dockerfiles
-	./hadolint Dockerfile
-	# This is a linter for Python source code linter: https://www.pylint.org/
-	# This should be run from inside a virtualenv
-# 	pylint --disable=R,C,W1203,W1202 app.py
+	./hadolint MySQL.Dockerfile
+	./hadolint Silverstripe.Dockerfile
+
 
 all: install lint test

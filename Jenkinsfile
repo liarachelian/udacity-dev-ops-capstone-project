@@ -8,7 +8,7 @@ pipeline {
                     sh 'pwd'
                      }
             }
-            stage('Lint Cloud Formation'){
+            stage('Lint Docker Files'){
                 steps {
                     sh 'echo "Validating Cloud Formation yaml"'
                     retry(2){

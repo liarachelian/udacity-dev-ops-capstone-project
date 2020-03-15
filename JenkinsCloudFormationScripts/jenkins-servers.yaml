@@ -84,8 +84,6 @@ Resources:
           sudo yum install jenkins -y
           sudo service jenkins start
           chkconfig jenkins on
-          pip install --upgrade pip
-          pip install cfn-lint
       NetworkInterfaces:
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
