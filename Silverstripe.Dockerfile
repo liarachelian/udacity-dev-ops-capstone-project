@@ -1,4 +1,4 @@
-FROM brettt89/silverstripe-web:latest
+FROM brettt89/silverstripe-web:7.3-debian-stretch
 
 ENV MYSQL_DATABASE='test'
 ENV MYSQL_USER='root'
