@@ -1,4 +1,4 @@
-FROM brettt89/silverstripe-web
+FROM brettt89/silverstripe-web:latest
 
 ENV MYSQL_DATABASE='test'
 ENV MYSQL_USER='root'
