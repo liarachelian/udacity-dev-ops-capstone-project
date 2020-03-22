@@ -4,23 +4,24 @@ pipeline {
     }
     agent any
         stages {
-            stage('Build') {
+            stage('Start Pipeline') {
                 steps {
                     sh 'echo "This is the first step of the build"'
                     sh 'echo "Start Build"'
                      }
             }
-            stage('Get unique images numbers') {
+            stage('Get GIT_HASH') {
                         steps {
                             script {
                                 env.GIT_HASH = sh(
                                     script: "git show --oneline | head -1 | cut -d' ' -f1",
                                     returnStdout: true
                                 ).trim()
+                               sh 'echo "${env.GIT_HASH}"'
                             }
                         }
                     }
-            stage('Linting Docker Files'){
+            stage('Lint Dockerfile'){
                 steps {
                     sh 'echo "Linting Docker File"'
                     retry(2){
@@ -30,13 +31,18 @@ pipeline {
                     }
                 }
             }
-            stage('Build & Push to dockerhub') {
+            stage('Build & Push to Dockerfile') {
                         steps {
                             script {
+                                sh 'echo "Build Docker Image"'
                                 dockerImage = docker.build("steeloctopus/duckhunt:${env.GIT_HASH}")
+                                sh 'echo "Push Docker Image"'
+                                retry(2){
                                 docker.withRegistry('',dockerHubCredentials ) {
-                                    dockerImage.push()
+                                dockerImage.push()
+                                    }
                                 }
+
                             }
                         }
                     }
