@@ -48,7 +48,7 @@ pipeline {
              stage('Build Docker Container') {
                    		steps {
                    		    echo "Create docker container"
-             			    sh 'docker run --name duckhunt -d -p 80:80 steeloctopus/duckhunt:${env.GIT_HASH}'
+             			    sh 'docker run --name duckhunt -d -p 80:80 steeloctopus/duckhunt:'.${env.GIT_HASH}
                          }
                      }
              stage("Clean docker up") {
