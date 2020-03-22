@@ -10,6 +10,16 @@ pipeline {
                     sh 'echo "Start Build"'
                      }
             }
+            stage('Get unique images numbers') {
+                        steps {
+                            script {
+                                env.GIT_HASH = sh(
+                                    script: "git show --oneline | head -1 | cut -d' ' -f1",
+                                    returnStdout: true
+                                ).trim()
+                            }
+                        }
+                    }
             stage('Linting Docker Files'){
                 steps {
                     sh 'echo "Linting Docker File"'
@@ -23,7 +33,7 @@ pipeline {
             stage('Build & Push to dockerhub') {
                         steps {
                             script {
-                                dockerImage = docker.build("steeloctopus/duckhunt:1.0")
+                                dockerImage = docker.build("steeloctopus/duckhunt:${env.GIT_HASH}")
                                 docker.withRegistry('',dockerHubCredentials ) {
                                     dockerImage.push()
                                 }
