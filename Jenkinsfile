@@ -24,7 +24,7 @@ pipeline {
                         steps {
                             script {
                                 dockerImage = docker.build("steeloctopus/duckhunt:1.0")
-                                docker.withRegistry('https://hub.docker.com/repositories',dockerHubCredentials ) {
+                                docker.withRegistry('',dockerHubCredentials ) {
                                     dockerImage.push()
                                 }
                             }
