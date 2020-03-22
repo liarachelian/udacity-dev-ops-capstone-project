@@ -20,7 +20,7 @@ pipeline {
             stage('Build & Push to dockerhub') {
                         steps {
                             script {
-                                dockerImage = docker.build("steeloctopus/duckhunt:1.0")
+                                dockerImage = docker.build("steeloctopus/duckhunt:1.0","./Duckhunt.Dockerfile")
                                 docker.withRegistry('', dockerhubCredentials) {
                                     dockerImage.push()
                                 }
