@@ -6,8 +6,8 @@ pipeline {
         stages {
             stage('Start Pipeline') {
                 steps {
-                    sh 'echo "This is the first step of the build"'
-                    sh 'echo "Start Build"'
+                    echo "This is the first step of the build"
+                    echo "Start Build"
                      }
             }
             stage('Get GIT_HASH') {
@@ -23,7 +23,7 @@ pipeline {
                     }
             stage('Lint Dockerfile'){
                 steps {
-                    sh 'echo "Linting Docker File"'
+                    echo "Linting Docker File"
                     retry(2){
                         sh 'wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64 &&\
                                     chmod +x hadolint'
@@ -34,9 +34,9 @@ pipeline {
             stage('Build & Push to Dockerfile') {
                         steps {
                             script {
-                                sh 'echo "Build Docker Image"'
+                                echo "Build Docker Image"
                                 dockerImage = docker.build("steeloctopus/duckhunt:${env.GIT_HASH}")
-                                sh 'echo "Push Docker Image"'
+                                echo "Push Docker Image"
                                 retry(2){
                                 docker.withRegistry('',dockerHubCredentials ) {
                                 dockerImage.push()
