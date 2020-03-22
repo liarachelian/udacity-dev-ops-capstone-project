@@ -45,6 +45,12 @@ pipeline {
                             }
                         }
                     }
+             stage('Build Docker Container') {
+                   		steps {
+                   		    echo "Create docker container"
+             			    sh 'docker run --name duckhunt -d -p 80:80 steeloctopus/duckhunt:${env.GIT_HASH}'
+                         }
+                     }
              stage("Clean docker up") {
                         steps {
                             script {
@@ -53,7 +59,7 @@ pipeline {
                             }
                         }
                     }
-//             stage('Publish to S3') {
+         stage('Publish to AWS') {
 //                 steps {
 //                 withAWS(region: 'us-east-1', credentials: 'Jenkins') {
 //                           sh 'echo "Uploading content with AWS creds"'
@@ -62,7 +68,7 @@ pipeline {
 //                            bucket: 'udacity-dev-ops-project-three')
 //                         }
 //                 }
-//             }
+            }
         }
     post {
             always {
