@@ -59,7 +59,7 @@ pipeline {
                             }
                         }
                     }
-         stage('Publish to AWS') {
+//          stage('Publish to AWS') {
 //                 steps {
 //                 withAWS(region: 'us-east-1', credentials: 'Jenkins') {
 //                           sh 'echo "Uploading content with AWS creds"'
@@ -68,7 +68,7 @@ pipeline {
 //                            bucket: 'udacity-dev-ops-project-three')
 //                         }
 //                 }
-            }
+//             }
         }
     post {
             always {
