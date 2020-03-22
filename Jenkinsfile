@@ -4,13 +4,12 @@ pipeline {
             stage('Build') {
                 steps {
                     sh 'echo "This is the first step of the build"'
-                    sh 'echo "Finish Build"'
-                    sh 'pwd'
+                    sh 'echo "Start Build"'
                      }
             }
-            stage('Lint Docker Files'){
+            stage('Linting Docker Files'){
                 steps {
-                    sh 'echo "Validating Cloud Formation yaml"'
+                    sh 'echo "Linting Docker File"'
                     retry(2){
                         sh 'wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64 &&\
                                     chmod +x hadolint'
@@ -19,6 +18,17 @@ pipeline {
                     }
                 }
             }
+            stage('Build & Push to dockerhub') {
+                        steps {
+                            script {
+                                dockerImage = docker.build("steeloctopus/duckhunt:${env.GIT_HASH}")
+                                docker.withRegistry('', dockerhubCredentials) {
+                                    dockerImage.push()
+                                }
+                            }
+                        }
+                    }
+
 //             stage('Publish to S3') {
 //                 steps {
 //                 withAWS(region: 'us-east-1', credentials: 'Jenkins') {
