@@ -9,7 +9,6 @@ install:
 
 
 make:
-	# Additional, optional, tests could go here
 	docker build -t duckhunt:1.0 .
 	docker tag duckhunt:1.0 steeloctopus/duckhunt:2.0
 	docker push steeloctopus/duckhunt:2.0
