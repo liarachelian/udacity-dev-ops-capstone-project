@@ -14,8 +14,6 @@ test:
 lint:
 	# See local hadolint install instructions:   https://github.com/hadolint/hadolint
 	# This is linter for Dockerfiles
-	./hadolint MySQL.Dockerfile
-	./hadolint Silverstripe.Dockerfile
-
+	./hadolint Duckhunt.Dockerfile
 
 all: install lint test
