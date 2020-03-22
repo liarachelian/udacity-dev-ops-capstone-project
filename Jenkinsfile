@@ -14,14 +14,13 @@ pipeline {
                         sh 'wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64 &&\
                                     chmod +x hadolint'
                         sh 'make lint'
-//                         sh 'cfn-lint ApplicationCloudFormationScripts/network.yaml'
                     }
                 }
             }
             stage('Build & Push to dockerhub') {
                         steps {
                             script {
-                                dockerImage = docker.build("steeloctopus/duckhunt:${env.GIT_HASH}")
+                                dockerImage = docker.build("steeloctopus/duckhunt:1.0")
                                 docker.withRegistry('', dockerhubCredentials) {
                                     dockerImage.push()
                                 }
