@@ -20,7 +20,10 @@ pipeline {
             stage('Build & Push to dockerhub') {
                         steps {
                             script {
-                                sh 'make build'
+                                dockerImage = docker.build("steeloctopus/duckhunt:1.0")
+                                docker.withRegistry('https://hub.docker.com/repositories','docker-hub-credentials' ) {
+                                    dockerImage.push()
+                                }
                             }
                         }
                     }

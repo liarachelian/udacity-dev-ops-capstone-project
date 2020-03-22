@@ -82,6 +82,9 @@ Resources:
           sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
           sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
           sudo yum install jenkins -y
+          sudo usermod -a -G docker jenkins
+          sudo gpasswd -a jenkins docker
+          sudo service docker start
           sudo service jenkins start
           chkconfig jenkins on
       NetworkInterfaces:
