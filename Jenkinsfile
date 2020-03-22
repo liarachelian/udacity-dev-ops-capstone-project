@@ -21,7 +21,6 @@ pipeline {
                         steps {
                             script {
                                 sh 'make build'
-                                }
                             }
                         }
                     }
