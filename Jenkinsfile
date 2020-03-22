@@ -17,7 +17,7 @@ pipeline {
                                     script: "git show --oneline | head -1 | cut -d' ' -f1",
                                     returnStdout: true
                                 ).trim()
-                               sh 'echo ${env.GIT_HASH}'
+                                echo env.GIT_HASH
                             }
                         }
                     }
