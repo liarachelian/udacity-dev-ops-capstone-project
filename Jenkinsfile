@@ -45,7 +45,14 @@ pipeline {
                             }
                         }
                     }
-
+             stage("Clean docker up") {
+                        steps {
+                            script {
+                                echo 'Cleaning Docker up'
+                                sh "docker system prune"
+                            }
+                        }
+                    }
 //             stage('Publish to S3') {
 //                 steps {
 //                 withAWS(region: 'us-east-1', credentials: 'Jenkins') {
