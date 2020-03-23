@@ -55,6 +55,7 @@ pipeline {
          stage('Publish to AWS') {
                 steps {
                 sh './run_kubernetes.sh'
+                echo $PATH
 //                 withAWS(region: 'us-east-1', credentials: 'Jenkins') {
 //                           echo "Uploading content with AWS creds"
 //                           s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file: 'index.html', bucket: 'udacity-dev-ops-project-three')
