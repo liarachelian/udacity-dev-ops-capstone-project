@@ -54,7 +54,7 @@ pipeline {
 
          stage('Publish to AWS') {
                 steps {
-                echo $PATH
+                sh 'echo $PATH'
                 sh './run_kubernetes.sh'
 
 //                 withAWS(region: 'us-east-1', credentials: 'Jenkins') {
