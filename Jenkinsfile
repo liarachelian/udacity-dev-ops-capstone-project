@@ -61,10 +61,11 @@ pipeline {
                 				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                 					sh '''
                 					    kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt
+
                 					'''
-                                    sh '''
-                                        kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt
-                                    '''
+                					sh '''
+                					    kubectl --apply -f ApplicationCloudFormationScripts/blue-deploy.yaml
+                					'''
                 				}
                 			}
                 		}
