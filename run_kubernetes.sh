@@ -27,4 +27,4 @@ kubectl get pods --all-namespaces
 
 kubectl expose deployment duckhunt --type="NodePort" --port=80
 
-kubectl port-forward deployment/duckhunt 8080:80
+kubectl port-forward deployment/duckhunt 8081:80

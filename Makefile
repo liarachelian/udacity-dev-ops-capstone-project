@@ -5,17 +5,25 @@
 # app.py should pass pylint
 # (Optional) Build a simple integration test
 
-install:
+install:kub
 
 
 build:
-	docker build -t duckhunt:1.0 .
-	docker tag duckhunt:1.0 steeloctopus/duckhunt:2.0
-	docker push steeloctopus/duckhunt:2.0
+	eksctl create cluster \
+    --name duckhunt \
+    --region us-east-1 \
+    --nodegroup-name standard-workers \
+    --node-type t2.micro \
+    --nodes 3 \
+    --nodes-min 1 \
+    --nodes-max 4 \
+    --managed
 
 lint:
 	# See local hadolint install instructions:   https://github.com/hadolint/hadolint
 	# This is linter for Dockerfiles
 	./hadolint Dockerfile
+
+
 
 all: install lint test

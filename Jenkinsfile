@@ -60,7 +60,8 @@ pipeline {
                 			steps {
                 				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                 					sh '''
-                						kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.yaml
+                					    kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt \
+                						apply -f ApplicationCloudFormationScripts/blue-deploy.yaml
                 					'''
                 				}
                 			}
