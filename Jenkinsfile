@@ -47,10 +47,12 @@ pipeline {
                     }
                 stage('Set current kubectl context') {
                     steps {
+                        sh 'echo KUBECONFIG'
                         withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                             sh '''
                                 kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt
                             '''
+
                         }
                     }
                 }
