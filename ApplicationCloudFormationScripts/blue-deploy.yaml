@@ -1,18 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: duckhunt1
-  labels:
-    app: apache
+  name: ducks-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: apache
+      app: ducks
+  minReadySeconds: 5
   template:
     metadata:
       labels:
-        app: apache
+        app: ducks
     spec:
       containers:
         - name: ducks
