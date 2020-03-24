@@ -58,7 +58,7 @@ pipeline {
                 }
                 stage('Deploy blue container') {
                 			steps {
-                				withAWS(region:'us-east-1', credentials:'aws-static') {
+                				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                 					sh '''
                 						kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.json
                 					'''
@@ -67,7 +67,7 @@ pipeline {
                 		}
                 stage('Create the service in the cluster, redirect to blue') {
                 			steps {
-                				withAWS(region:'us-east-1', credentials:'aws-static') {
+                				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                 					sh '''
                 						kubectl apply -f ./blue-service.json
                 					'''
