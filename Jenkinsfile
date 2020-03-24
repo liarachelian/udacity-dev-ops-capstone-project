@@ -45,26 +45,15 @@ pipeline {
                             }
                         }
                     }
-//              stage('Build Docker Container') {
-//                    		steps {
-//                    		    echo "Create docker container"
-//              			    docker. run --name duckhunt -d -p 8080:80 steeloctopus/duckhunt:.${env.GIT_HASH}
-//                          }
-//                      }
-
-         stage('Publish to AWS') {
-                steps {
-                sh 'echo $PATH'
-                sh './run_kubernetes.sh'
-
-//                 withAWS(region: 'us-east-1', credentials: 'Jenkins') {
-//                           echo "Uploading content with AWS creds"
-//                           s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file: 'index.html', bucket: 'udacity-dev-ops-project-three')
-//                           s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file: 'IMG_0809.jpg',
-//                            bucket: 'udacity-dev-ops-project-three')
-//                         }
+                stage('Set current kubectl context') {
+                    steps {
+                        withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                            sh '''
+                                kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt
+                            '''
+                        }
+                    }
                 }
-            }
                  stage("Clean docker up") {
                                         steps {
                                             script {
