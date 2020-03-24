@@ -84,8 +84,6 @@ Resources:
           sudo yum install jenkins -y
           sudo usermod -a -G docker jenkins
           sudo gpasswd -a jenkins docker
-          sudo service docker start
-          sudo service jenkins start
           pip install awscli --upgrade
           curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/kubectl
           openssl sha1 -sha256 kubectl
@@ -94,6 +92,8 @@ Resources:
           curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
           sudo mv /tmp/eksctl /usr/bin
           curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/kubectl
+          sudo service docker start
+          sudo service jenkins start
           chkconfig jenkins on
       NetworkInterfaces:
         - AssociatePublicIpAddress: "true"
