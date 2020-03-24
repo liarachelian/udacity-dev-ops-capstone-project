@@ -56,11 +56,29 @@ pipeline {
                         }
                     }
                 }
+                stage('Deploy blue container') {
+                			steps {
+                				withAWS(region:'us-east-1', credentials:'aws-static') {
+                					sh '''
+                						kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.json
+                					'''
+                				}
+                			}
+                		}
+                stage('Create the service in the cluster, redirect to blue') {
+                			steps {
+                				withAWS(region:'us-east-1', credentials:'aws-static') {
+                					sh '''
+                						kubectl apply -f ./blue-service.json
+                					'''
+                				}
+                			}
+                		}
                  stage("Clean docker up") {
                                         steps {
                                             script {
                                                 echo 'Cleaning Docker up'
-                                                sh "docker system prune"
+                                                sh "docker system prune -y"
                                             }
                                         }
                                     }
