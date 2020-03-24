@@ -64,7 +64,7 @@ pipeline {
 
                 					'''
                 					sh '''
-                					    kubectl --apply -f ApplicationCloudFormationScripts/blue-deploy.yaml
+                					    kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.yaml
                 					'''
                 				}
                 			}
