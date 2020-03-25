@@ -64,7 +64,7 @@ pipeline {
 
                 					'''
                 					sh '''
-                					    kubectl create -f ApplicationCloudFormationScripts/blue-deploy.yaml configmap/aws-auth
+                					    kubectl create -f ApplicationCloudFormationScripts/blue-deploy.yaml
                 					'''
                 				}
                 			}
