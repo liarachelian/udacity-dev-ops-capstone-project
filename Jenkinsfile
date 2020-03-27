@@ -68,15 +68,15 @@ pipeline {
                 				}
                 			}
                 		}
-//                 stage('Create the service in the cluster, redirect to blue') {
-//                 			steps {
-//                 				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
-//                 					sh '''
-//                 						kubectl apply -f ./blue-service.json
-//                 					'''
-//                 				}
-//                 			}
-//                 		}
+                stage('Create the service in the cluster') {
+                			steps {
+                				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                					sh '''
+                						kubectl apply -f ./blue-service.json
+                					'''
+                				}
+                			}
+                		}
                  stage("Clean docker up") {
                                         steps {
                                             script {
