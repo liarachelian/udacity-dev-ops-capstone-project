@@ -60,9 +60,6 @@ pipeline {
                 			steps {
                 				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                 					sh '''
-                					    kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt
-                					'''
-                					sh '''
                 					    kubectl create -f ApplicationCloudFormationScripts/blue-deploy.yaml
                 					'''
                 				}
@@ -77,14 +74,17 @@ pipeline {
                 				}
                 			}
                 		}
-                 stage("Clean docker up") {
-                                        steps {
-                                            script {
-                                                echo 'Cleaning Docker up'
-                                                sh "docker system prune -y"
-                                            }
-                                        }
-                                    }
+                 stage('Approval to route traffic to backup') {
+                                    steps {
+                                         input "Does the new version looks good?"
+                                     }
+                        }
+                stage('Deploy latest on production cluster') {
+                                     steps {
+                                         sh "kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt"
+                                         sh "kubectl apply -f ApplicationCloudFormationScripts/green-deploy.json"
+                                     }
+                         }
         }
     post {
             always {

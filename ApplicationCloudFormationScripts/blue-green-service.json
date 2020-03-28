@@ -2,7 +2,7 @@
   "kind":"Service",
   "apiVersion":"v1",
   "metadata":{
-    "name":"blue-ducks",
+    "name":"ducks",
     "labels":{
       "app":"ducks"
     }
@@ -15,7 +15,7 @@
       }
     ],
     "selector":{
-      "app":"ducks"
+      "app":"blue-ducks"
     },
     "type": "LoadBalancer"
   }
