@@ -8,19 +8,15 @@ pipeline {
                 steps {
                     echo "This is the first step of the build"
                     echo "Start Build"
+                    script {
+                            env.GIT_HASH = sh(
+                                script: "git show --oneline | head -1 | cut -d' ' -f1",
+                                returnStdout: true
+                                ).trim()
+                            echo env.GIT_HASH
+                          }
                      }
             }
-            stage('Get GIT_HASH') {
-                        steps {
-                            script {
-                                env.GIT_HASH = sh(
-                                    script: "git show --oneline | head -1 | cut -d' ' -f1",
-                                    returnStdout: true
-                                ).trim()
-                                echo env.GIT_HASH
-                            }
-                        }
-                    }
             stage('Lint Dockerfile'){
                 steps {
                     echo "Linting Docker File"
@@ -45,42 +41,30 @@ pipeline {
                             }
                         }
                     }
-            stage('Set current kubectl context') {
-                    steps {
-                        withAWS(region:'us-east-1', credentials:'AWSCredentials') {
-                            sh 'kubectl config view'
-                            sh 'kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
-
-                        }
-                    }
-                }
-                stage('Deploy blue container') {
+                stage('Deploy blue container and create service') {
                     steps {
                 		withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                		    sh 'kubectl config view'
+                            sh 'kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
                 			sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.yaml'
+                			sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-service.json'
                 				}
                 			}
                 		}
-                stage('Create the service in the cluster') {
-                	steps {
-                		withAWS(region:'us-east-1', credentials:'AWSCredentials') {
-                			sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-green-service.json'
-                			}
-                		}
-                	}
-                 stage('Approval to route traffic to backup') {
-                     steps {
-                        withAWS(region:'us-east-1', credentials:'AWSCredentials') {
-                             sh 'kubectl get service/ducks'
-                             }
-                             input "Does the new version looks good?"
+                stage('Approval to route traffic to backup') {
+                    steps {
+                       withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                            sh 'kubectl get service/ducks'
+                            }
+                            input "Does the new version looks good?"
                         }
-                     }
+                }
                 stage('Deploy latest on production cluster') {
                    steps {
                      withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                          sh 'kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
                          sh 'kubectl apply -f ApplicationCloudFormationScripts/green-deploy.yaml'
+                         sh 'kubectl apply -f ApplicationCloudFormationScripts/green-service.json '
                          sh 'kubectl get service/ducks'
                          }
                     }
