@@ -32,59 +32,59 @@ pipeline {
                 }
             }
             stage('Build & Push to Dockerfile') {
-                        steps {
-                            script {
+                 steps {
+                    script {
                                 echo "Build Docker Image"
                                 dockerImage = docker.build("steeloctopus/duckhunt:${env.GIT_HASH}")
                                 echo "Push Docker Image"
                                 retry(2){
                                 docker.withRegistry('',dockerHubCredentials ) {
-                                dockerImage.push()
+                                    dockerImage.push()
                                     }
                                 }
                             }
                         }
                     }
-                stage('Set current kubectl context') {
+            stage('Set current kubectl context') {
                     steps {
-                        sh 'kubectl config view'
                         withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                            sh 'kubectl config view'
                             sh 'kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
 
                         }
                     }
                 }
                 stage('Deploy blue container') {
-                			steps {
-                				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
-                					sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.yaml'
+                    steps {
+                		withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                			sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.yaml'
                 				}
                 			}
                 		}
                 stage('Create the service in the cluster') {
-                			steps {
-                				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
-                					sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-green-service.json'
-                				}
+                	steps {
+                		withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                			sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-green-service.json'
                 			}
                 		}
+                	}
                  stage('Approval to route traffic to backup') {
-                                    steps {
-                                         withAWS(region:'us-east-1', credentials:'AWSCredentials') {
-                                                         					sh 'kubectl get service/ducks'
-                                                         				}
-                                         input "Does the new version looks good?"
-                                     }
+                     steps {
+                        withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                             sh 'kubectl get service/ducks'
+                             }
+                             input "Does the new version looks good?"
                         }
+                     }
                 stage('Deploy latest on production cluster') {
-                                     steps {
-                                     withAWS(region:'us-east-1', credentials:'AWSCredentials') {
-                                         sh 'kubectl config use-context
-                                         arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
-                                         sh 'kubectl apply -f ApplicationCloudFormationScripts/green-deploy.yaml'
-                                         }
-                                     }
+                   steps {
+                     withAWS(region:'us-east-1', credentials:'AWSCredentials') {
+                         sh 'kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
+                         sh 'kubectl apply -f ApplicationCloudFormationScripts/green-deploy.yaml'
+                         sh 'kubectl get service/ducks'
                          }
+                    }
+                }
         }
     post {
             always {
