@@ -47,6 +47,7 @@ pipeline {
                 		    sh 'kubectl config view'
                             sh 'kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
                 			sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.yaml'
+                			sleep(time:20,unit:"SECONDS")
                 			sh 'kubectl apply -f ApplicationCloudFormationScripts/blue-service.json'
                 				}
                 			}
@@ -64,6 +65,7 @@ pipeline {
                      withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                          sh 'kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
                          sh 'kubectl apply -f ApplicationCloudFormationScripts/green-deploy.yaml'
+                         sleep(time:20,unit:"SECONDS")
                          sh 'kubectl apply -f ApplicationCloudFormationScripts/green-service.json '
                          sh 'kubectl get service/ducks-prod'
                          }
