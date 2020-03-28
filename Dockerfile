@@ -8,7 +8,7 @@ RUN git clone https://github.com/MattSurabian/DuckHunt-JS.git
 # Clone the git hiub repo for the files
 
 RUN cp -r DuckHunt-JS/dist/* /var/www/html
-copy the files dist file into the html working directory
+break the docker file.
 
 EXPOSE 80
 EXPOSE 443
