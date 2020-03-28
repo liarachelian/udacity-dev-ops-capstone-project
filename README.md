@@ -14,4 +14,7 @@ This is a SilverStripe CMS that has been uploaded created using CLoudFormation a
 1. Create EC2 pem key called "jenkins-host"
 2. Create "JenkinsCICDRole" Role with EC2, VPC, S3, CF and IAM full access in AWS
 
-The UserData on the Jenkins host will automatically install the Jenkins Server and a Cloud Formation Linting tool
+The UserData on the Jenkins host will automatically install the Jenkins Server and a Cloud Formation Linting and all
+ tools required for roll out of the AWS EKS cluster.
+ 
+
