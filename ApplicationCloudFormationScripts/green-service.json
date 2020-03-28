@@ -2,7 +2,7 @@
   "kind":"Service",
   "apiVersion":"v1",
   "metadata":{
-    "name":"ducks",
+    "name":"ducks-prod",
     "labels":{
       "app":"ducks"
     }
