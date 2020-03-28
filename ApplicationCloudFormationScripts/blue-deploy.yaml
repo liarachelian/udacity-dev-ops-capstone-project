@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ducks-deployment
+  name: ducks-test
 spec:
   selector:
     matchLabels:
