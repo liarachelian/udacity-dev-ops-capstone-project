@@ -10,10 +10,10 @@ spec:
   template:
     metadata:
       labels:
-        app: ducks
+        app: blue-ducks
     spec:
       containers:
-        - name: ducks
+        - name: blue-ducks
           image: steeloctopus/duckhunt:1.0
           ports:
             - containerPort: 80
