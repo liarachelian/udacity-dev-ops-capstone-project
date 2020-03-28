@@ -60,7 +60,7 @@ pipeline {
                 			steps {
                 				withAWS(region:'us-east-1', credentials:'AWSCredentials') {
                 					sh '''
-                					    kubectl create -f ApplicationCloudFormationScripts/blue-deploy.yaml
+                					    kubectl apply -f ApplicationCloudFormationScripts/blue-deploy.yaml
                 					'''
                 				}
                 			}
