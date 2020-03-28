@@ -82,7 +82,7 @@ pipeline {
                 stage('Deploy latest on production cluster') {
                                      steps {
                                          sh "kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt"
-                                         sh "kubectl apply -f ApplicationCloudFormationScripts/green-deploy.json"
+                                         sh "kubectl apply -f ApplicationCloudFormationScripts/green-deploy.yaml"
                                      }
                          }
         }
