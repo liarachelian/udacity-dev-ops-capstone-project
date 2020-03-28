@@ -18,13 +18,13 @@ Resources:
       NodegroupName: standard-workers
       ScalingConfig:
         MinSize: 1
-        MaxSize: 3
+        MaxSize: 5
         DesiredSize: 2
       Subnets: !Split
         - ','
         - !ImportValue 'eksctl-duckhunt-cluster::SubnetsPublic'
       InstanceTypes:
-        - t2.micro
+        - t2.medium
       AmiType: AL2_x86_64
       NodeRole: !GetAtt NodeInstanceRole.Arn
       Labels:
