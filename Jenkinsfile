@@ -65,7 +65,7 @@ pipeline {
                          sh 'kubectl config use-context arn:aws:eks:us-east-1:124880580859:cluster/duckhunt'
                          sh 'kubectl apply -f ApplicationCloudFormationScripts/green-deploy.yaml'
                          sh 'kubectl apply -f ApplicationCloudFormationScripts/green-service.json '
-                         sh 'kubectl get service/ducks'
+                         sh 'kubectl get service/ducks-prod'
                          }
                     }
                 }
